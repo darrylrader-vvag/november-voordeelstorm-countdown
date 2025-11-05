@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>countdown</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+    .countdown-banner {
+        width: 100%;
+        background-color: #d63311;
+        color: white;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .countdown-heading {
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    .countdown-container {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .time-unit {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .time-value {
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 1;
+        min-width: 80px;
+        text-align: center;
+    }
+
+    .time-label {
+        font-size: 12px;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    @media (max-width: 768px) {
+        .countdown-heading {
+            font-size: 20px;
+        }
+
+        .countdown-container {
+            gap: 20px;
+        }
+
+        .time-value {
+            font-size: 40px;
+            min-width: 60px;
+        }
+
+        .time-label {
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .countdown-heading {
+            font-size: 16px;
+        }
+
+        .countdown-container {
+            gap: 15px;
+        }
+
+        .time-value {
+            font-size: 30px;
+            min-width: 45px;
+        }
+
+        .time-label {
+            font-size: 10px;
+        }
+    }
+</style>
+</head>
+
+<body>
+    <div class="countdown-banner">
+        <div class="countdown-heading">Let op! De acties gelden nog:</div>
+        <div class="countdown-container">
+            <div class="time-unit">
+                <div class="time-value" id="days">00</div>
+                <div class="time-label">Dagen</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="hours">00</div>
+                <div class="time-label">Uren</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="minutes">00</div>
+                <div class="time-label">Minuten</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-value" id="seconds">00</div>
+                <div class="time-label">Seconden</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const targetDate = new Date('December 1, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = String(days).padStart(2, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            } else {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+            }
+        }
+
+        // Update countdown immediately
+        updateCountdown();
+        
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
